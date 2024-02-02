@@ -27,6 +27,11 @@ class PostCreate(BaseModel):
     title: str
     body: str
 
+# handle / request
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
+
 # POST /posts
 @app.post("/posts",response_model=PostResponse)
 def create_post(post_data: PostCreate, db: Session = Depends(get_db)):
