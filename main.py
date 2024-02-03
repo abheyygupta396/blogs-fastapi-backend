@@ -42,6 +42,10 @@ class PostCreate(BaseModel):
     title: str
     body: str
 
+class PostUpdate(BaseModel):
+    title: str
+    body: str
+
 # handle / request
 @app.get("/")
 def read_root():
@@ -106,19 +110,18 @@ def get_post_by_id(id: int, db: Session = Depends(get_db)):
 
 # PUT /posts/{id}
 @app.put("/posts/{id}", response_model=PostResponse)
-def update_post(id: int, title: str = None, body: str = None, db: Session = Depends(get_db)):
+def update_post(id: int, post_update: PostUpdate, db: Session = Depends(get_db)):
     try:
         post = db.query(Post).filter(Post.id == id).first()
         if post is None:
             raise HTTPException(status_code=404, detail="Post not found")
 
-        if title is not None:
-            post.title = title
-        if body is not None:
-            post.body = body
+        post.title = post_update.title
+        post.body = post_update.body.strip()
 
         db.commit()
         db.refresh(post)
+
         response_data = PostResponse(
             response_data=[],
             response_message='Post Updated Successfully',
