@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException, Depends
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from database import SessionLocal, engine
 from models import Base, Post
@@ -6,6 +7,20 @@ from pydantic import BaseModel
 from typing import List
 
 app = FastAPI()
+
+# CORS Configuration
+origins = [
+    "http://localhost:3000",  # frontend URL
+    "https://blogs-fastapi-backend.onrender.com/",  # deployed URL 
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Create tables in the database
 Base.metadata.create_all(bind=engine)
