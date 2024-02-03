@@ -12,6 +12,7 @@ app = FastAPI()
 origins = [
     "http://localhost:3000",  # frontend URL
     "https://blogs-fastapi-backend.onrender.com/",  # deployed URL 
+    "https://react-blogs-app.onrender.com/"
 ]
 
 app.add_middleware(
