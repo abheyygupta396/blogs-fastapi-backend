@@ -9,7 +9,7 @@ load_dotenv()
 Base = declarative_base()
 
 class Post(Base):
-    __tablename__ = os.getenv('DB_NAME')
+    __tablename__ = "posts"
 
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, index=True)
