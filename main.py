@@ -46,7 +46,7 @@ class PostUpdate(BaseModel):
 # handle / request
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
+    return "Service Working Fine"
 
 # POST /posts
 @app.post("/posts",response_model=PostResponse)
