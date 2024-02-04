@@ -9,11 +9,7 @@ from typing import List
 app = FastAPI()
 
 # CORS Configuration
-origins = [
-    "http://localhost:3000",  # frontend URL
-    "https://blogs-fastapi-backend.onrender.com/",  # deployed URL 
-    "https://react-blogs-app.onrender.com/"
-]
+origins = ["*"]
 
 app.add_middleware(
     CORSMiddleware,
